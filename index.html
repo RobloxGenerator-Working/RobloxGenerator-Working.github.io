@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My ESP8266 Data</title>
+</head>
+<body>
+  <h1>ESP8266 live data</h1>
+  <p>Last value: <strong id="val">loading...</strong></p>
+  <p>Updated at: <strong id="time">—</strong></p>
+
+  <script>
+    const CHAN = '3056866'; // change to your numeric channel ID
+    async function fetchData() {
+      try {
+        const res = await fetch(`https://api.thingspeak.com/channels/${CHAN}/feeds.json?results=1`);
+        const j = await res.json();
+        const last = j.feeds[0];
+        document.getElementById('val').innerText = last.field1 ?? 'no data';
+        document.getElementById('time').innerText = last.created_at ?? '—';
+      } catch (e) {
+        document.getElementById('val').innerText = 'error';
+        console.error(e);
+      }
+    }
+    fetchData();
+    setInterval(fetchData, 30000); // refresh every 30s
+  </script>
+</body>
+</html>
