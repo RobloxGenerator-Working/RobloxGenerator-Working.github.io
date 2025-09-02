@@ -70,7 +70,7 @@
     filter: saturate(1.05);
   }
 
-  /* New, smoother shine using transform (no left/jump) */
+  /* smoother shine effect for buttons */
   .btn::before{
     content:"";
     position:absolute;
@@ -106,7 +106,7 @@
   .ring.r3{ width:140px; height:140px; border-width:4px; animation-duration:4.6s; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* center orb */
+  /* center orb (sun) */
   .orb {
     width:54px; height:54px; border-radius:50%;
     background: radial-gradient(circle at 30% 30%, #fff, #ffd36b 30%, #ff6b6b 65%, #d64bff 100%);
@@ -116,7 +116,7 @@
     position:relative;
   }
 
-  /* ADD LIGHT RAYS */
+  /* light rays on sun */
   .orb::before {
       content:"";
       position:absolute;
@@ -151,7 +151,7 @@
     animation: spinWrap var(--d,9s) linear infinite;
     z-index:2;
   }
-  .spark-wrap:nth-child(1){ --d:9s; }   /* slower */
+  .spark-wrap:nth-child(1){ --d:9s; }
   .spark-wrap:nth-child(2){ --d:11s; }
   .spark-wrap:nth-child(3){ --d:14s; }
 
@@ -160,17 +160,22 @@
     to   { transform: translate(-50%,-50%) rotate(calc(var(--deg,0deg) + 360deg)); }
   }
 
-  .spark {
-    position:absolute;
-    left:0; top:0;
-    width:12px; height:12px; border-radius:50%;
-    background: linear-gradient(90deg, #fff, #ffd36b);
-    box-shadow: 0 6px 20px rgba(255,200,120,0.35);
-    transform: translateX(var(--r,120px)) translateY(-6px);
-    z-index:2;
-  }
-  .spark.s2{ width:10px; height:10px; transform: translateX(var(--r,100px)) translateY(-6px); }
-  .spark.s3{ width:9px; height:9px; transform: translateX(var(--r,72px)) translateY(-4px); }
+  /* spark colors */
+  .spark.s1 { width:12px; height:12px; border-radius:50%;
+      background: linear-gradient(90deg, #4fc3f7, #0288d1);
+      box-shadow: 0 6px 20px rgba(79,195,247,0.35);
+      transform: translateX(var(--r,120px)) translateY(-6px);
+      z-index:2; }
+  .spark.s2 { width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(90deg, #ffd36b, #ff6b6b);
+      box-shadow: 0 6px 20px rgba(255,211,107,0.35);
+      transform: translateX(var(--r,100px)) translateY(-6px);
+      z-index:2; }
+  .spark.s3 { width:9px; height:9px; border-radius:50%;
+      background: linear-gradient(90deg, #8e44ad, #d64bff);
+      box-shadow: 0 6px 20px rgba(214,75,255,0.35);
+      transform: translateX(var(--r,72px)) translateY(-4px);
+      z-index:2; }
 
   .loading-text {
     margin-top:12px; font-size:1.18rem; font-weight:700; letter-spacing:0.2px;
@@ -260,17 +265,17 @@
     <div class="ring r2"></div>
     <div class="ring r3"></div>
 
-    <div class="orb" aria-hidden="true"></div>
+    <div class="orb" aria-hidden="true"></div> <!-- sun orb, unchanged -->
 
-    <!-- spark-wraps (centered wrappers that rotate) -->
+    <!-- spark-wraps (orbiting colored orbs) -->
     <div class="spark-wrap" style="--d:9s; --r:120px; --deg:0deg;">
-      <div class="spark s1" style="--r:120px;"></div>
+      <div class="spark s1"></div>
     </div>
     <div class="spark-wrap" style="--d:11s; --r:100px; --deg:120deg;">
-      <div class="spark s2" style="--r:100px;"></div>
+      <div class="spark s2"></div>
     </div>
     <div class="spark-wrap" style="--d:14s; --r:72px; --deg:270deg;">
-      <div class="spark s3" style="--r:72px;"></div>
+      <div class="spark s3"></div>
     </div>
   </div>
 
@@ -296,7 +301,7 @@
 
 <script>
   const messages = ["Processing", "Working on it", "Please be patient", "Done!"];
-  const changeIntervalMs = 11000; // 20s
+  const changeIntervalMs = 11000; 
   let msgIndex = 0, msgTimer = null;
 
   const page1 = document.getElementById('page1');
