@@ -1,113 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Roblox Garden Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grow a Garden Rewards</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url("https://ichef.bbci.co.uk/news/1024/cpsprodpb/5ea8/live/3fab4f60-4d1c-11f0-8c47-237c2e4015f5.jpg.webp") no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
+      font-family: "Poppins", sans-serif;
+      background: url("https://ichef.bbci.co.uk/news/1024/cpsprodpb/5ea8/live/3fab4f60-4d1c-11f0-8c47-237c2e4015f5.jpg.webp") no-repeat center center/cover;
+      color: white;
+      text-align: center;
       overflow: hidden;
     }
 
-    .page {
+    /* Shared title */
+    h1 {
+      margin: 0;
+      padding: 20px;
+      font-size: 2.5em;
+      text-shadow: 0px 0px 10px black;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Buttons */
+    .button-container {
+      margin-top: 100px;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 40px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Loading screen */
+    #loading {
+      display: none;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: all 0.8s ease;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+    }
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #ff416c;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 2s linear infinite;
+      margin-bottom: 30px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-text {
+      font-size: 1.5em;
+      animation: fadeText 1s ease;
+    }
+    @keyframes fadeText {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-50px);
+    /* Final page */
+    #final {
+      display: none;
     }
-
-    h1 {
-      text-align: center;
-      font-size: 3em;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0px 0px 15px rgba(255,255,255,0.8), 0px 0px 25px rgba(0,0,0,0.6);
-      animation: dropIn 1.5s ease-out;
+    #final .content {
+      margin-top: 100px;
     }
-
-    .button {
-      padding: 15px 40px;
-      margin: 10px;
-      border: none;
-      border-radius: 25px;
-      background: linear-gradient(45deg, #ff5f6d, #ffc371);
-      color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .button:hover {
-      transform: scale(1.1);
-      background: linear-gradient(45deg, #43cea2, #185a9d);
-      box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
-    }
-
-    .button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -75px;
-      width: 50px;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.4);
-      transform: skewX(-20deg);
-      transition: 0.5s;
-    }
-
-    .button:hover::before {
-      left: 120%;
-    }
-
-    @keyframes dropIn {
-      0% {opacity: 0; transform: translateY(-50px);}
-      100% {opacity: 1; transform: translateY(0);}
+    #final button {
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <!-- Page 1 -->
-  <div id="page1" class="page">
-    <h1>🌱 Welcome to My Roblox Garden 🌱</h1>
-    <button class="button" onclick="goToPage2()">🐾 Get Pets</button>
-    <button class="button" onclick="goToPage2()">💸 Win Robux</button>
-    <button class="button" onclick="goToPage2()">✨ Others...</button>
+  <!-- Main Page -->
+  <div id="main">
+    <h1>Grow a Garden Rewards</h1>
+    <div class="button-container">
+      <button onclick="goToLoading()">Get Pets</button>
+      <button onclick="goToLoading()">Win Robux</button>
+      <button onclick="goToLoading()">Others</button>
+    </div>
   </div>
 
-  <!-- Page 2 -->
-  <div id="page2" class="page hidden">
-    <h1>🤖 Join the bot<br><br>The bot will automatically give your rewards in the game!</h1>
-    <button class="button">🚀 Join now!</button>
+  <!-- Loading Page -->
+  <div id="loading">
+    <div class="loader"></div>
+    <div class="loading-text" id="loading-text">Processing...</div>
+  </div>
+
+  <!-- Final Page -->
+  <div id="final">
+    <h1>Grow a Garden Rewards</h1>
+    <div class="content">
+      <p>Join the bot, it will automatically give your rewards in the game.</p>
+      <button>Join Now!</button>
+    </div>
   </div>
 
   <script>
-    function goToPage2() {
-      document.getElementById("page1").classList.add("hidden");
-      setTimeout(() => {
-        document.getElementById("page1").style.display = "none";
-        document.getElementById("page2").classList.remove("hidden");
-      }, 800); // matches transition time
+    const messages = ["Processing...", "Working on it...", "Please be patient...", "Done!"];
+    let index = 0;
+
+    function goToLoading() {
+      document.getElementById("main").style.display = "none";
+      document.getElementById("loading").style.display = "flex";
+
+      index = 0;
+      document.getElementById("loading-text").textContent = messages[index];
+
+      const interval = setInterval(() => {
+        index++;
+        if (index < messages.length) {
+          document.getElementById("loading-text").textContent = messages[index];
+        } else {
+          clearInterval(interval);
+          goToFinal();
+        }
+      }, 11000); // change every 2s for demo, make it 20000 (20s) in real use
+    }
+
+    function goToFinal() {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("final").style.display = "block";
     }
   </script>
 </body>
