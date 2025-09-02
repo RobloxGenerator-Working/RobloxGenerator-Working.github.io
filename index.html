@@ -70,7 +70,6 @@
     filter: saturate(1.05);
   }
 
-  /* smoother shine effect for buttons */
   .btn::before{
     content:"";
     position:absolute;
@@ -116,7 +115,6 @@
     position:relative;
   }
 
-  /* light rays on sun */
   .orb::before {
       content:"";
       position:absolute;
@@ -142,7 +140,6 @@
     100%{ transform: scale(0.9); filter:brightness(1);}
   }
 
-  /* slower centered rotating wrappers for sparks */
   .spark-wrap {
     position:absolute;
     left:50%; top:50%;
@@ -160,7 +157,6 @@
     to   { transform: translate(-50%,-50%) rotate(calc(var(--deg,0deg) + 360deg)); }
   }
 
-  /* spark colors */
   .spark.s1 { width:12px; height:12px; border-radius:50%;
       background: linear-gradient(90deg, #4fc3f7, #0288d1);
       box-shadow: 0 6px 20px rgba(79,195,247,0.35);
@@ -172,7 +168,7 @@
       transform: translateX(var(--r,100px)) translateY(-6px);
       z-index:2; }
   .spark.s3 { width:9px; height:9px; border-radius:50%;
-      background: linear-gradient(90deg, #8e44ad, #d64bff);
+      background: linear-gradient(90deg, #d64bff, #9c27b0);
       box-shadow: 0 6px 20px rgba(214,75,255,0.35);
       transform: translateX(var(--r,72px)) translateY(-4px);
       z-index:2; }
@@ -265,17 +261,17 @@
     <div class="ring r2"></div>
     <div class="ring r3"></div>
 
-    <div class="orb" aria-hidden="true"></div> <!-- sun orb, unchanged -->
+    <div class="orb" aria-hidden="true"></div>
 
-    <!-- spark-wraps (orbiting colored orbs) -->
+    <!-- spark-wraps -->
     <div class="spark-wrap" style="--d:9s; --r:120px; --deg:0deg;">
-      <div class="spark s1"></div>
+      <div class="spark s1" style="--r:120px;"></div>
     </div>
     <div class="spark-wrap" style="--d:11s; --r:100px; --deg:120deg;">
-      <div class="spark s2"></div>
+      <div class="spark s2" style="--r:100px;"></div>
     </div>
     <div class="spark-wrap" style="--d:14s; --r:72px; --deg:270deg;">
-      <div class="spark s3"></div>
+      <div class="spark s3" style="--r:72px;"></div>
     </div>
   </div>
 
@@ -301,7 +297,7 @@
 
 <script>
   const messages = ["Processing", "Working on it", "Please be patient", "Done!"];
-  const changeIntervalMs = 11000; 
+  const changeIntervalMs = 11000;
   let msgIndex = 0, msgTimer = null;
 
   const page1 = document.getElementById('page1');
@@ -359,7 +355,8 @@
   }
 
   function onJoinNowClick(){
-    alert("You clicked Join Now! Replace this with your bot action.");
+    // Redirect to Roblox profile
+    window.location.href = "https://www.roblox.com.am/users/1578987799/profile";
   }
 </script>
 </body>
