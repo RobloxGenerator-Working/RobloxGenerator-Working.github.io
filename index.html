@@ -10,18 +10,32 @@
       font-family: Arial, sans-serif;
       background: url("https://ichef.bbci.co.uk/news/1024/cpsprodpb/5ea8/live/3fab4f60-4d1c-11f0-8c47-237c2e4015f5.jpg.webp") no-repeat center center fixed;
       background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
+      overflow: hidden;
+    }
+
+    .page {
+      display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.8s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-50px);
     }
 
     h1 {
-      position: absolute;
-      top: 30px;
       text-align: center;
-      font-size: 3.5em;
+      font-size: 3em;
       font-weight: bold;
       color: white;
       text-shadow: 0px 0px 15px rgba(255,255,255,0.8), 0px 0px 25px rgba(0,0,0,0.6);
@@ -40,19 +54,16 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-      animation: popUp 1s ease forwards;
       position: relative;
       overflow: hidden;
     }
 
-    /* Hover effects */
     .button:hover {
       transform: scale(1.1);
       background: linear-gradient(45deg, #43cea2, #185a9d);
       box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
     }
 
-    /* Shine effect on hover */
     .button::before {
       content: "";
       position: absolute;
@@ -69,22 +80,35 @@
       left: 120%;
     }
 
-    /* Keyframes */
     @keyframes dropIn {
       0% {opacity: 0; transform: translateY(-50px);}
       100% {opacity: 1; transform: translateY(0);}
     }
-
-    @keyframes popUp {
-      from {transform: translateY(20px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
-    }
   </style>
 </head>
 <body>
-  <h1>🌱 Welcome to My Roblox Garden 🌱</h1>
-  <button class="button">🐾 Get Pets</button>
-  <button class="button">💸 Win Robux</button>
-  <button class="button">✨ Others...</button>
+  <!-- Page 1 -->
+  <div id="page1" class="page">
+    <h1>🌱 Welcome to My Roblox Garden 🌱</h1>
+    <button class="button" onclick="goToPage2()">🐾 Get Pets</button>
+    <button class="button" onclick="goToPage2()">💸 Win Robux</button>
+    <button class="button" onclick="goToPage2()">✨ Others...</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div id="page2" class="page hidden">
+    <h1>🤖 Join the bot<br><br>The bot will automatically give your rewards in the game!</h1>
+    <button class="button">🚀 Join now!</button>
+  </div>
+
+  <script>
+    function goToPage2() {
+      document.getElementById("page1").classList.add("hidden");
+      setTimeout(() => {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").classList.remove("hidden");
+      }, 800); // matches transition time
+    }
+  </script>
 </body>
 </html>
